@@ -1,1 +1,772 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Just Coco ($COCO) - The World's Most Important Dog on Solana</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Inter & Space Grotesk -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800;900&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <!-- Tone.js for web audio sound effects without external URLs -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.min.js"></script>
+  <!-- Canvas Confetti for birthday celebration -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
+  <!-- Tailwind Configuration -->
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              gold: '#F59E0B',
+              amber: '#D97706',
+              bright: '#FBBF24',
+              dark: '#0B0F19',
+              darker: '#06080F',
+              card: '#111827',
+              border: '#1F2937'
+            }
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            display: ['"Space Grotesk"', 'sans-serif']
+          },
+          animation: {
+            'float': 'float 4s ease-in-out infinite',
+            'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+            'spin-slow': 'spin 18s linear infinite',
+            'bounce-gentle': 'bounce 2.5s infinite'
+          },
+          keyframes: {
+            float: {
+              '0%, 100%': { transform: 'translateY(0px)' },
+              '50%': { transform: 'translateY(-12px)' },
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Glowing aura and background mesh */
+    .mesh-gradient {
+      background-radial: radial-gradient(at 50% 0%, rgba(245, 158, 11, 0.15) 0px, transparent 60%),
+                         radial-gradient(at 100% 50%, rgba(217, 119, 6, 0.08) 0px, transparent 50%),
+                         radial-gradient(at 0% 100%, rgba(251, 191, 36, 0.08) 0px, transparent 50%);
+    }
+    .gold-glow {
+      box-shadow: 0 0 40px -8px rgba(245, 158, 11, 0.35);
+    }
+    .gold-glow-lg {
+      box-shadow: 0 0 70px -12px rgba(245, 158, 11, 0.5);
+    }
+    .text-gold-gradient {
+      background: linear-gradient(135deg, #FDE68A 0%, #F59E0B 50%, #D97706 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    /* Subtle background grid */
+    .bg-grid-pattern {
+      background-size: 32px 32px;
+      background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    }
+    /* Floating background paws */
+    .paw-element {
+      position: absolute;
+      opacity: 0.08;
+      pointer-events: none;
+      animation: float 6s ease-in-out infinite;
+    }
+  </style>
+</head>
+
+<body class="bg-brand-darker text-slate-100 font-sans selection:bg-brand-gold selection:text-black overflow-x-hidden min-h-screen relative">
+  <div class="fixed inset-0 bg-grid-pattern pointer-events-none z-0"></div>
+  <div class="fixed inset-0 mesh-gradient pointer-events-none z-0"></div>
+
+  <!-- Ambient Paw SVGs in background -->
+  <svg class="paw-element w-24 h-24 top-16 left-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 13a4.5 4.5 0 00-4.5 4.5c0 2.485 2.015 4.5 4.5 4.5s4.5-2.015 4.5-4.5A4.5 4.5 0 0012 13zM6.5 7.5a2.5 2.5 0 100 5 2.5 2.5 0 000-5zM17.5 7.5a2.5 2.5 0 100 5 2.5 2.5 0 000-5zM9 3a2.5 2.5 0 100 5 2.5 2.5 0 000-5zM15 3a2.5 2.5 0 100 5 2.5 2.5 0 000-5z"/></svg>
+  <svg class="paw-element w-32 h-32 top-1/3 right-10 animation-delay-2000" fill="currentColor" viewBox="0 0 24 24"><path d="M12 13a4.5 4.5 0 00-4.5 4.5c0 2.485 2.015 4.5 4.5 4.5s4.5-2.015 4.5-4.5A4.5 4.5 0 0012 13zM6.5 7.5a2.5 2.5 0 100 5 2.5 2.5 0 000-5zM17.5 7.5a2.5 2.5 0 100 5 2.5 2.5 0 000-5zM9 3a2.5 2.5 0 100 5 2.5 2.5 0 000-5zM15 3a2.5 2.5 0 100 5 2.5 2.5 0 000-5z"/></svg>
+  <svg class="paw-element w-20 h-20 bottom-32 left-1/4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 13a4.5 4.5 0 00-4.5 4.5c0 2.485 2.015 4.5 4.5 4.5s4.5-2.015 4.5-4.5A4.5 4.5 0 0012 13zM6.5 7.5a2.5 2.5 0 100 5 2.5 2.5 0 000-5zM17.5 7.5a2.5 2.5 0 100 5 2.5 2.5 0 000-5zM9 3a2.5 2.5 0 100 5 2.5 2.5 0 000-5zM15 3a2.5 2.5 0 100 5 2.5 2.5 0 000-5z"/></svg>
+
+  <!-- Notification Toast container -->
+  <div id="toast" class="fixed top-6 right-6 z-50 transform translate-y-[-100px] opacity-0 transition-all duration-300 ease-out bg-slate-900 border border-brand-gold/60 text-white px-5 py-3.5 rounded-2xl shadow-2xl flex items-center gap-3 backdrop-blur-md">
+    <div class="w-8 h-8 rounded-full bg-brand-gold/20 flex items-center justify-center text-brand-gold font-bold text-sm">✓</div>
+    <div>
+      <p class="font-bold text-sm text-brand-gold">Success</p>
+      <p id="toastMessage" class="text-xs text-slate-300">Contract Address Copied to Clipboard!</p>
+    </div>
+  </div>
+
+  <header class="relative z-40 border-b border-white/5 backdrop-blur-lg sticky top-0 bg-brand-darker/80">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      <!-- Logo Branding -->
+      <a href="#" class="flex items-center gap-3 group">
+        <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-brand-amber to-brand-gold p-0.5 shadow-lg group-hover:scale-105 transition-transform duration-200">
+          <div class="w-full h-full bg-brand-card rounded-[14px] flex items-center justify-center overflow-hidden">
+            <span class="text-2xl group-hover:rotate-12 transition-transform duration-200">👑</span>
+          </div>
+        </div>
+        <div>
+          <span class="font-display font-black text-xl tracking-tight text-white block leading-none">JUST COCO</span>
+          <span class="text-[11px] font-bold text-brand-gold tracking-widest uppercase">Solana’s King Poodle</span>
+        </div>
+      </a>
+
+      <!-- Desktop Nav Items -->
+      <nav class="hidden md:flex items-center gap-8 text-sm font-semibold text-slate-300">
+        <a href="#about" class="hover:text-brand-gold transition-colors">Lore</a>
+        <a href="#tokenomics" class="hover:text-brand-gold transition-colors">Tokenomics</a>
+        <a href="#simulator" class="hover:text-brand-gold transition-colors">Moon Simulator</a>
+        <a href="#howtobuy" class="hover:text-brand-gold transition-colors">How to Buy</a>
+        <a href="#pupmap" class="hover:text-brand-gold transition-colors">Pupmap</a>
+      </nav>
+
+      <!-- Action Buttons -->
+      <div class="flex items-center gap-3">
+        <!-- Interactive Sound Effect Toggle -->
+        <button id="barkBtn" title="Play Dog Bark" class="p-2.5 rounded-xl border border-white/10 bg-white/5 hover:bg-brand-gold/10 hover:border-brand-gold/40 text-slate-300 hover:text-brand-gold transition-all duration-200 flex items-center gap-2 text-xs font-bold">
+          <span>🔊</span>
+          <span class="hidden sm:inline">Bark!</span>
+        </button>
+
+        <!-- Birthday Confetti Trigger -->
+        <button id="birthdayBtn" class="p-2.5 rounded-xl border border-brand-gold/30 bg-gradient-to-r from-brand-gold/10 to-brand-amber/10 hover:border-brand-gold text-brand-gold transition-all duration-200 flex items-center gap-2 text-xs font-bold">
+          <span>🎉</span>
+          <span class="hidden sm:inline">Birthday mode</span>
+        </button>
+
+        <!-- Direct Link to Pump.fun -->
+        <a href="https://pump.fun/coin/7MWsTwEmQhAEaCD1UQL3QSL6ECGBJapkkmLtdk5Gpump" target="_blank" rel="noopener noreferrer" class="relative group overflow-hidden rounded-xl p-[1px] font-bold text-xs sm:text-sm">
+          <span class="absolute inset-0 bg-gradient-to-r from-brand-bright to-brand-amber rounded-xl transition-all duration-300 group-hover:scale-105"></span>
+          <span class="relative block px-4 py-2.5 rounded-[11px] bg-brand-dark text-white group-hover:bg-opacity-0 transition-all duration-300">
+            Buy on Pump.fun 🚀
+          </span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="relative z-10">
+    <section class="relative pt-12 pb-20 md:pt-20 md:pb-32 overflow-hidden">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+          
+          <!-- Hero Text Left Column -->
+          <div class="lg:col-span-7 text-center lg:text-left space-y-6">
+            <!-- Badge -->
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-brand-gold/30 bg-brand-gold/10 backdrop-blur-md">
+              <span class="inline-block w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
+              <span class="text-xs font-extrabold uppercase tracking-wider text-brand-bright">Live on Solana Pump.fun • $COCO</span>
+            </div>
+
+            <!-- Big Main Heading -->
+            <h1 class="text-4xl sm:text-6xl xl:text-7xl font-display font-black tracking-tight leading-[1.08] text-white">
+              The World's Most <br>
+              <span class="text-gold-gradient">Important Dog</span> <br>
+              on the Blockchain.
+            </h1>
+
+            <!-- Tagline description -->
+            <p class="text-base sm:text-lg text-slate-400 max-w-2xl mx-auto lg:mx-0 font-normal leading-relaxed">
+              Just Coco exists for one single purpose: <strong>to make Coco famous.</strong> 
+              No venture capital, no insiders, 100% fair bonding curve launch on Solana. The good boy revolution starts right here.
+            </p>
+
+            <!-- Contract Address Quick-Copy Bar -->
+            <div class="pt-2 max-w-xl mx-auto lg:mx-0">
+              <div class="p-2 sm:p-2.5 rounded-2xl bg-brand-card/90 border border-brand-border flex items-center justify-between gap-3 shadow-xl backdrop-blur-md">
+                <div class="flex items-center gap-2.5 overflow-hidden pl-2">
+                  <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">CA:</span>
+                  <span class="font-mono text-xs sm:text-sm text-brand-bright truncate select-all" id="caDisplay">7MWsTwEmQhAEaCD1UQL3QSL6ECGBJapkkmLtdk5Gpump</span>
+                </div>
+                <button id="copyCaBtn" class="shrink-0 px-4 py-2 bg-brand-gold/20 hover:bg-brand-gold text-brand-gold hover:text-black font-bold text-xs rounded-xl transition-all duration-200 flex items-center gap-1.5 border border-brand-gold/40">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+                  <span id="copyBtnText">Copy</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Hero CTA Buttons -->
+            <div class="pt-4 flex flex-wrap items-center justify-center lg:justify-start gap-4">
+              <a href="https://pump.fun/coin/7MWsTwEmQhAEaCD1UQL3QSL6ECGBJapkkmLtdk5Gpump" target="_blank" rel="noopener noreferrer" class="px-8 py-4 rounded-2xl bg-gradient-to-r from-brand-bright via-brand-gold to-brand-amber text-black font-extrabold text-base shadow-lg hover:shadow-brand-gold/25 hover:scale-105 active:scale-95 transition-all duration-200 flex items-center gap-2">
+                <span>Join The Royal Pack</span>
+                <span class="text-lg">🐾</span>
+              </a>
+              <a href="#simulator" class="px-6 py-4 rounded-2xl bg-brand-card hover:bg-slate-800 text-white font-bold text-base border border-slate-700/80 hover:border-slate-600 transition-all duration-200 flex items-center gap-2">
+                <span>Moon Simulator</span>
+                <span class="text-brand-gold">⚡</span>
+              </a>
+            </div>
+
+            <!-- Quick Metrics Row -->
+            <div class="pt-6 grid grid-cols-3 gap-3 border-t border-white/10 max-w-lg mx-auto lg:mx-0">
+              <div class="text-center lg:text-left">
+                <p class="text-xl sm:text-2xl font-black text-white font-display">1,000,000,000</p>
+                <p class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">Supply ($COCO)</p>
+              </div>
+              <div class="text-center lg:text-left">
+                <p class="text-xl sm:text-2xl font-black text-emerald-400 font-display">0%</p>
+                <p class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">Buy / Sell Tax</p>
+              </div>
+              <div class="text-center lg:text-left">
+                <p class="text-xl sm:text-2xl font-black text-brand-gold font-display">100%</p>
+                <p class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">Good Boy</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="lg:col-span-5 flex justify-center">
+            <div class="relative w-72 sm:w-96 aspect-square group">
+              <!-- Golden backglow aura -->
+              <div class="absolute inset-0 rounded-full bg-gradient-to-tr from-brand-amber via-brand-bright to-yellow-200 filter blur-3xl opacity-30 group-hover:opacity-50 transition-opacity duration-500 animate-pulse-slow"></div>
+
+              <!-- Main Coin Outer Ring -->
+              <div class="relative w-full h-full rounded-full p-3 bg-gradient-to-tr from-brand-amber via-brand-bright to-brand-gold gold-glow-lg animate-float">
+                <div class="w-full h-full rounded-full border-4 border-dashed border-amber-300/40 p-2 bg-gradient-to-b from-brand-dark to-brand-card flex items-center justify-center relative overflow-hidden">
+                  
+                  <!-- Circular SVG Avatar Artwork (Royal Golden Poodle Mascot) -->
+                  <svg viewBox="0 0 400 400" class="w-full h-full select-none" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                      <radialGradient id="poodleGold" cx="50%" cy="50%" r="50%" fx="30%" fy="30%">
+                        <stop offset="0%" stop-color="#FDE68A"/>
+                        <stop offset="45%" stop-color="#D97706"/>
+                        <stop offset="90%" stop-color="#92400E"/>
+                        <stop offset="100%" stop-color="#78350F"/>
+                      </radialGradient>
+                      <linearGradient id="crownGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#FEF08A"/>
+                        <stop offset="50%" stop-color="#F59E0B"/>
+                        <stop offset="100%" stop-color="#B45309"/>
+                      </linearGradient>
+                      <filter id="shadow">
+                        <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.4"/>
+                      </filter>
+                    </defs>
+
+                    <!-- Background coin plate -->
+                    <circle cx="200" cy="200" r="190" fill="#131926" stroke="#F59E0B" stroke-width="4"/>
+                    
+                    <!-- Decorative inner sparkles -->
+                    <circle cx="60" cy="90" r="4" fill="#FDE68A" opacity="0.6"/>
+                    <circle cx="340" cy="110" r="5" fill="#FDE68A" opacity="0.7"/>
+                    <circle cx="70" cy="300" r="3" fill="#FDE68A" opacity="0.4"/>
+                    <circle cx="330" cy="290" r="4" fill="#FDE68A" opacity="0.6"/>
+
+                    <!-- Coco Poodle Fur Cloud / Ears -->
+                    <!-- Left Ear Curls -->
+                    <circle cx="120" cy="190" r="42" fill="url(#poodleGold)" filter="url(#shadow)"/>
+                    <circle cx="110" cy="235" r="36" fill="url(#poodleGold)" filter="url(#shadow)"/>
+                    <circle cx="125" cy="270" r="28" fill="url(#poodleGold)" filter="url(#shadow)"/>
+
+                    <!-- Right Ear Curls -->
+                    <circle cx="280" cy="190" r="42" fill="url(#poodleGold)" filter="url(#shadow)"/>
+                    <circle cx="290" cy="235" r="36" fill="url(#poodleGold)" filter="url(#shadow)"/>
+                    <circle cx="275" cy="270" r="28" fill="url(#poodleGold)" filter="url(#shadow)"/>
+
+                    <!-- Main Face Fluff Base -->
+                    <ellipse cx="200" cy="225" rx="72" ry="65" fill="url(#poodleGold)" filter="url(#shadow)"/>
+                    <!-- Top Head Pompom -->
+                    <circle cx="200" cy="155" r="58" fill="url(#poodleGold)"/>
+                    <circle cx="165" cy="145" r="38" fill="url(#poodleGold)"/>
+                    <circle cx="235" cy="145" r="38" fill="url(#poodleGold)"/>
+                    <circle cx="190" cy="120" r="30" fill="url(#poodleGold)"/>
+                    <circle cx="215" cy="120" r="30" fill="url(#poodleGold)"/>
+
+                    <!-- Snout Muzzle -->
+                    <ellipse cx="200" cy="245" rx="42" ry="34" fill="#FCD34D"/>
+
+                    <!-- Cute Big Eyes -->
+                    <!-- Left eye -->
+                    <circle cx="170" cy="205" r="14" fill="#1C1917"/>
+                    <circle cx="166" cy="200" r="5" fill="#FFFFFF"/>
+                    <!-- Right eye -->
+                    <circle cx="230" cy="205" r="14" fill="#1C1917"/>
+                    <circle cx="226" cy="200" r="5" fill="#FFFFFF"/>
+
+                    <!-- Nose -->
+                    <path d="M192,236 C192,230 208,230 208,236 C208,245 192,245 192,236 Z" fill="#18181B"/>
+                    <circle cx="197" cy="233" r="2" fill="#E4E4E7"/>
+
+                    <!-- Playful Smile -->
+                    <path d="M194,250 Q200,258 206,250" stroke="#78350F" stroke-width="3" fill="none" stroke-linecap="round"/>
+
+                    <!-- Royal Golden Crown on head -->
+                    <g filter="url(#shadow)">
+                      <path d="M155,108 L170,72 L200,95 L230,72 L245,108 Z" fill="url(#crownGrad)" stroke="#B45309" stroke-width="2"/>
+                      <circle cx="170" cy="70" r="4.5" fill="#EF4444"/>
+                      <circle cx="200" cy="93" r="5.5" fill="#3B82F6"/>
+                      <circle cx="230" cy="70" r="4.5" fill="#10B981"/>
+                    </g>
+
+                    <!-- Gold Medallion Ribbon & Text -->
+                    <rect x="120" y="322" width="160" height="42" rx="21" fill="url(#crownGrad)" stroke="#78350F" stroke-width="2"/>
+                    <text x="200" y="348" text-anchor="middle" font-family="'Space Grotesk', sans-serif" font-weight="900" font-size="22" fill="#3E1A00" letter-spacing="2">COCO</text>
+                  </svg>
+
+                  <!-- Floating Badge overlay -->
+                  <div class="absolute -bottom-2 bg-brand-gold text-black font-black text-xs px-3.5 py-1.5 rounded-full shadow-lg border-2 border-white uppercase tracking-wider flex items-center gap-1">
+                    <span>👑</span>
+                    <span>100% Solana Regal</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="py-20 bg-brand-card/40 border-y border-white/5 relative">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-3xl mx-auto mb-16">
+          <h2 class="text-xs font-black text-brand-gold uppercase tracking-widest mb-3">Official Whitepaper Synopsis</h2>
+          <h3 class="text-3xl sm:text-5xl font-display font-black text-white">The Tale of Just Coco</h3>
+          <p class="mt-4 text-slate-400 text-base sm:text-lg">
+            Other dogs chase balls, bark at mail delivery trucks, or chew shoes. Coco had bigger plans: conquer the blockchain.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <!-- Card 1 -->
+          <div class="rounded-3xl bg-brand-card p-8 border border-brand-border hover:border-brand-gold/50 transition-all duration-300 hover:-translate-y-2 group shadow-xl">
+            <div class="w-14 h-14 rounded-2xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-3xl mb-6 group-hover:scale-110 transition-transform">
+              👑
+            </div>
+            <h4 class="text-xl font-bold font-display text-white mb-3">Born to Reign</h4>
+            <p class="text-slate-400 text-sm leading-relaxed">
+              Coco isn't just an ordinary companion; Coco was appointed Supreme Sovereign of Solana. With golden curls that radiate sheer alpha energy, Coco commands respect across all decentralised protocols.
+            </p>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="rounded-3xl bg-brand-card p-8 border border-brand-border hover:border-brand-gold/50 transition-all duration-300 hover:-translate-y-2 group shadow-xl">
+            <div class="w-14 h-14 rounded-2xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-3xl mb-6 group-hover:scale-110 transition-transform">
+              ⚡
+            </div>
+            <h4 class="text-xl font-bold font-display text-white mb-3">Fair Launch Supremacy</h4>
+            <p class="text-slate-400 text-sm leading-relaxed">
+              No private presale seed rounds, no institutional VCs dumping on retail. Every single $COCO coin is born openly on the Pump.fun bonding curve. Transparent, unruggable, and 100% community-owned.
+            </p>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="rounded-3xl bg-brand-card p-8 border border-brand-border hover:border-brand-gold/50 transition-all duration-300 hover:-translate-y-2 group shadow-xl">
+            <div class="w-14 h-14 rounded-2xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-3xl mb-6 group-hover:scale-110 transition-transform">
+              🍗
+            </div>
+            <h4 class="text-xl font-bold font-display text-white mb-3">The Barkonomist Theory</h4>
+            <p class="text-slate-400 text-sm leading-relaxed">
+              Traditional finance is complicated. Coco's philosophy is simple: 1 $COCO = 1 $COCO. When the community thrives, Coco gets extra organic chicken treats. It's a win-win economic loop.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="tokenomics" class="py-20 relative">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-3xl mx-auto mb-16">
+          <h2 class="text-xs font-black text-brand-gold uppercase tracking-widest mb-3">Bork-Grade Economics</h2>
+          <h3 class="text-3xl sm:text-5xl font-display font-black text-white">Tokenomics Built for Kings</h3>
+          <p class="mt-4 text-slate-400 text-base">Simple, clean, and zero funny business.</p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          
+          <div class="p-6 rounded-3xl bg-brand-card border border-white/5 relative overflow-hidden group">
+            <div class="absolute -right-4 -bottom-4 text-6xl opacity-5 group-hover:opacity-10 transition-opacity">🪙</div>
+            <p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Total Supply</p>
+            <p class="text-2xl lg:text-3xl font-black text-white font-display">1 Billion</p>
+            <p class="text-xs text-brand-gold mt-2 font-mono">1,000,000,000 $COCO</p>
+          </div>
+
+          <div class="p-6 rounded-3xl bg-brand-card border border-white/5 relative overflow-hidden group">
+            <div class="absolute -right-4 -bottom-4 text-6xl opacity-5 group-hover:opacity-10 transition-opacity">🛡️</div>
+            <p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Transaction Tax</p>
+            <p class="text-2xl lg:text-3xl font-black text-emerald-400 font-display">0% Buy / 0% Sell</p>
+            <p class="text-xs text-slate-400 mt-2">Zero hidden slippage deductions</p>
+          </div>
+
+          <div class="p-6 rounded-3xl bg-brand-card border border-white/5 relative overflow-hidden group">
+            <div class="absolute -right-4 -bottom-4 text-6xl opacity-5 group-hover:opacity-10 transition-opacity">📈</div>
+            <p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Liquidity Mechanism</p>
+            <p class="text-2xl lg:text-3xl font-black text-brand-bright font-display">Bonding Curve</p>
+            <p class="text-xs text-slate-400 mt-2">Graduates automatically to Raydium</p>
+          </div>
+
+          <div class="p-6 rounded-3xl bg-brand-card border border-white/5 relative overflow-hidden group">
+            <div class="absolute -right-4 -bottom-4 text-6xl opacity-5 group-hover:opacity-10 transition-opacity">🐾</div>
+            <p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Mint Authority</p>
+            <p class="text-2xl lg:text-3xl font-black text-sky-400 font-display">Revoked</p>
+            <p class="text-xs text-slate-400 mt-2">No new tokens can ever be minted</p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <section id="simulator" class="py-20 bg-brand-card/30 border-y border-white/5 relative">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+          <div class="inline-block px-3 py-1 rounded-full bg-brand-gold/10 text-brand-gold text-xs font-bold uppercase tracking-wider mb-2">Interactive Tool</div>
+          <h3 class="text-3xl sm:text-4xl font-display font-black text-white">The $COCO Moon Simulator</h3>
+          <p class="text-slate-400 text-sm mt-2">What happens when Coco takes over global finance? Drag the slider to forecast!</p>
+        </div>
+
+        <!-- Simulator Card -->
+        <div class="bg-brand-card rounded-3xl p-6 sm:p-10 border border-brand-border shadow-2xl relative">
+          <!-- Slider Control -->
+          <div class="space-y-4">
+            <div class="flex justify-between items-center text-sm">
+              <label for="mcapSlider" class="font-bold text-slate-300">Target Market Cap:</label>
+              <span id="mcapValueDisplay" class="font-display font-black text-xl text-brand-bright">$1,000,000</span>
+            </div>
+            
+            <input 
+              type="range" 
+              id="mcapSlider" 
+              min="5000" 
+              max="100000000" 
+              step="5000" 
+              value="1000000" 
+              class="w-full h-3 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-brand-gold focus:outline-none"
+            >
+            <div class="flex justify-between text-[11px] text-slate-500 font-bold uppercase tracking-wider">
+              <span>$5K (Launch)</span>
+              <span>$100K (Graduation)</span>
+              <span>$1M (Famous)</span>
+              <span>$100M (Global Empire)</span>
+            </div>
+          </div>
+
+          <!-- Dynamic Calculations Grid -->
+          <div class="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div class="p-5 rounded-2xl bg-brand-dark/80 border border-white/5">
+              <span class="text-xs text-slate-400 uppercase font-semibold">1 $COCO Token Price</span>
+              <p id="tokenPriceDisplay" class="text-2xl font-black font-mono text-white mt-1">$0.001000</p>
+              <p class="text-[11px] text-slate-500 mt-1">Based on 1B total supply</p>
+            </div>
+            
+            <div class="p-5 rounded-2xl bg-brand-dark/80 border border-white/5">
+              <span class="text-xs text-slate-400 uppercase font-semibold">If you hold 1,000,000 $COCO</span>
+              <p id="holdingValueDisplay" class="text-2xl font-black font-mono text-emerald-400 mt-1">$1,000.00</p>
+              <p class="text-[11px] text-slate-500 mt-1">Theoretical portfolio value</p>
+            </div>
+          </div>
+
+          <!-- Humorous Milestone Unlocked -->
+          <div class="mt-6 p-4 rounded-2xl bg-gradient-to-r from-brand-gold/10 to-transparent border border-brand-gold/30 flex items-start sm:items-center gap-3">
+            <div class="text-3xl shrink-0" id="milestoneIcon">🎾</div>
+            <div>
+              <p class="text-xs font-bold text-brand-gold uppercase tracking-wider">Coco Milestone Unlocked:</p>
+              <p id="milestoneText" class="text-sm font-semibold text-slate-200">Coco can purchase 100,000 premium golden tennis balls and 50 fire hydrants.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="howtobuy" class="py-20 relative">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-3xl mx-auto mb-16">
+          <h2 class="text-xs font-black text-brand-gold uppercase tracking-widest mb-3">Quick Onboarding</h2>
+          <h3 class="text-3xl sm:text-5xl font-display font-black text-white">How to Get $COCO</h3>
+          <p class="mt-4 text-slate-400 text-base">Get connected and grab your bag in 3 straightforward steps.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          
+          <!-- Step 1 -->
+          <div class="p-8 rounded-3xl bg-brand-card border border-brand-border flex flex-col justify-between">
+            <div>
+              <div class="w-12 h-12 rounded-2xl bg-purple-500/10 border border-purple-500/20 text-purple-400 font-display font-black text-xl flex items-center justify-center mb-6">
+                01
+              </div>
+              <h4 class="text-xl font-bold text-white mb-2 font-display">Get a Solana Wallet</h4>
+              <p class="text-slate-400 text-sm leading-relaxed">
+                Download a non-custodial wallet like Phantom, Solflare, or sign into Pump.fun directly via Privy using your Email or Twitter.
+              </p>
+            </div>
+            <div class="mt-6 pt-4 border-t border-white/5 text-xs text-purple-300 font-semibold">
+              Available on Mobile & Chrome
+            </div>
+          </div>
+
+          <!-- Step 2 -->
+          <div class="p-8 rounded-3xl bg-brand-card border border-brand-border flex flex-col justify-between">
+            <div>
+              <div class="w-12 h-12 rounded-2xl bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 font-display font-black text-xl flex items-center justify-center mb-6">
+                02
+              </div>
+              <h4 class="text-xl font-bold text-white mb-2 font-display">Fund with SOL</h4>
+              <p class="text-slate-400 text-sm leading-relaxed">
+                Transfer some SOL (Solana) from any exchange or buy it directly within your wallet to cover purchases and network fractions.
+              </p>
+            </div>
+            <div class="mt-6 pt-4 border-t border-white/5 text-xs text-cyan-300 font-semibold">
+              Fast, sub-second transactions
+            </div>
+          </div>
+
+          <!-- Step 3 -->
+          <div class="p-8 rounded-3xl bg-brand-card border border-brand-gold/40 flex flex-col justify-between gold-glow">
+            <div>
+              <div class="w-12 h-12 rounded-2xl bg-brand-gold/20 border border-brand-gold/30 text-brand-gold font-display font-black text-xl flex items-center justify-center mb-6">
+                03
+              </div>
+              <h4 class="text-xl font-bold text-white mb-2 font-display">Swap for $COCO</h4>
+              <p class="text-slate-400 text-sm leading-relaxed">
+                Head to the official Pump.fun bonding curve link, type how much SOL you want to swap, and confirm. Welcome to the Coco Pack!
+              </p>
+            </div>
+            <div class="mt-6 pt-4 border-t border-white/5">
+              <a href="https://pump.fun/coin/7MWsTwEmQhAEaCD1UQL3QSL6ECGBJapkkmLtdk5Gpump" target="_blank" class="text-xs text-brand-gold font-bold flex items-center gap-1 hover:underline">
+                Open Pump.fun curve &rarr;
+              </a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <section id="pupmap" class="py-20 bg-brand-card/40 border-y border-white/5 relative">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-3xl mx-auto mb-16">
+          <h2 class="text-xs font-black text-brand-gold uppercase tracking-widest mb-3">Strategic Trajectory</h2>
+          <h3 class="text-3xl sm:text-5xl font-display font-black text-white">The Official "Pupmap"</h3>
+          <p class="mt-4 text-slate-400 text-base">Our non-scientific roadmap to canine supremacy.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+          <div class="p-6 rounded-3xl bg-brand-dark/90 border border-brand-gold/30 relative">
+            <span class="inline-block px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-400 text-[10px] font-black uppercase mb-3">Phase 1: Completed</span>
+            <h5 class="text-lg font-bold text-white font-display">The Awakening</h5>
+            <ul class="mt-3 space-y-2 text-xs text-slate-400">
+              <li class="flex items-center gap-2"><span>✓</span> Deploy $COCO on Solana</li>
+              <li class="flex items-center gap-2"><span>✓</span> 100% Fair Launch Bonding Curve</li>
+              <li class="flex items-center gap-2"><span>✓</span> Launch official landing page</li>
+            </ul>
+          </div>
+
+          <div class="p-6 rounded-3xl bg-brand-dark/90 border border-white/10 relative">
+            <span class="inline-block px-3 py-1 rounded-full bg-brand-gold/20 text-brand-gold text-[10px] font-black uppercase mb-3">Phase 2: In Progress</span>
+            <h5 class="text-lg font-bold text-white font-display">Barking at Strangers</h5>
+            <ul class="mt-3 space-y-2 text-xs text-slate-400">
+              <li class="flex items-center gap-2"><span>→</span> Meme dissemination on X & TG</li>
+              <li class="flex items-center gap-2"><span>→</span> Coco birthday celebration raids</li>
+              <li class="flex items-center gap-2"><span>→</span> First 500 loyal holders</li>
+            </ul>
+          </div>
+
+          <div class="p-6 rounded-3xl bg-brand-dark/90 border border-white/10 relative">
+            <span class="inline-block px-3 py-1 rounded-full bg-purple-500/20 text-purple-400 text-[10px] font-black uppercase mb-3">Phase 3: Upcoming</span>
+            <h5 class="text-lg font-bold text-white font-display">The Raydium Migration</h5>
+            <ul class="mt-3 space-y-2 text-xs text-slate-400">
+              <li class="flex items-center gap-2"><span>•</span> Hit 100% on Pump.fun curve</li>
+              <li class="flex items-center gap-2"><span>•</span> Automatic Raydium listing & burn</li>
+              <li class="flex items-center gap-2"><span>•</span> CoinGecko & DexScreener verified</li>
+            </ul>
+          </div>
+
+          <div class="p-6 rounded-3xl bg-brand-dark/90 border border-white/10 relative">
+            <span class="inline-block px-3 py-1 rounded-full bg-amber-500/20 text-amber-400 text-[10px] font-black uppercase mb-3">Phase 4: Moon</span>
+            <h5 class="text-lg font-bold text-white font-display">World Domination</h5>
+            <ul class="mt-3 space-y-2 text-xs text-slate-400">
+              <li class="flex items-center gap-2"><span>•</span> Coco acquires real-life gold crown</li>
+              <li class="flex items-center gap-2"><span>•</span> Global dog shelter donations</li>
+              <li class="flex items-center gap-2"><span>•</span> Coco named Mayor of Solana</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-20 relative">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="rounded-3xl bg-gradient-to-r from-amber-600 via-brand-gold to-brand-bright p-8 sm:p-14 text-center text-black shadow-2xl relative overflow-hidden">
+          <div class="relative z-10 space-y-6">
+            <h3 class="text-3xl sm:text-5xl font-display font-black leading-tight">Ready to Walk with Coco?</h3>
+            <p class="text-base sm:text-lg font-semibold max-w-xl mx-auto text-amber-950">
+              The world's most important dog is waiting. Join the pack on Pump.fun today.
+            </p>
+            <div class="flex flex-wrap items-center justify-center gap-4 pt-2">
+              <a href="https://pump.fun/coin/7MWsTwEmQhAEaCD1UQL3QSL6ECGBJapkkmLtdk5Gpump" target="_blank" class="px-8 py-4 rounded-2xl bg-black text-white hover:bg-slate-900 font-extrabold text-sm transition-transform hover:scale-105 active:scale-95 shadow-xl">
+                Open Pump.fun Now 🚀
+              </a>
+              <button id="ctaCopyBtn" class="px-6 py-4 rounded-2xl bg-white/30 backdrop-blur-md hover:bg-white text-black font-extrabold text-sm transition-all border border-black/20">
+                Copy Contract Address
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="border-t border-white/5 py-12 bg-brand-darker relative z-10 text-xs text-slate-500">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-6">
+      <div class="flex items-center gap-3">
+        <span class="text-xl">👑</span>
+        <span class="font-bold text-slate-300">Just Coco ($COCO)</span>
+      </div>
+      <p class="text-center sm:text-right max-w-md">
+        Disclaimer: $COCO is a meme coin intended for entertainment, celebration, and fun. It holds no intrinsic utility or promises of financial returns. Always do your own research.
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    // Contract Address Variable
+    const CONTRACT_ADDRESS = "7MWsTwEmQhAEaCD1UQL3QSL6ECGBJapkkmLtdk5Gpump";
+    const TOTAL_SUPPLY = 1000000000; // 1 Billion
+
+    // Toast Notification helper
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      const toastMessage = document.getElementById('toastMessage');
+      if (toast && toastMessage) {
+        toastMessage.textContent = message;
+        toast.classList.remove('translate-y-[-100px]', 'opacity-0');
+        toast.classList.add('translate-y-0', 'opacity-100');
+        
+        setTimeout(() => {
+          toast.classList.remove('translate-y-0', 'opacity-100');
+          toast.classList.add('translate-y-[-100px]', 'opacity-0');
+        }, 3000);
+      }
+    }
+
+    // Copy to clipboard fallback handler
+    function copyTextToClipboard(text) {
+      const tempInput = document.createElement("input");
+      tempInput.style = "position: absolute; left: -1000px; top: -1000px";
+      tempInput.value = text;
+      document.body.appendChild(tempInput);
+      tempInput.select();
+      try {
+        document.execCommand("copy");
+        showToast("Contract Address Copied!");
+      } catch (err) {
+        showToast("Address copied: " + text.substring(0, 10) + "...");
+      }
+      document.body.removeChild(tempInput);
+    }
+
+    // Attach copy buttons
+    const copyCaBtn = document.getElementById('copyCaBtn');
+    const ctaCopyBtn = document.getElementById('ctaCopyBtn');
+    if (copyCaBtn) {
+      copyCaBtn.addEventListener('click', () => {
+        copyTextToClipboard(CONTRACT_ADDRESS);
+        const btnText = document.getElementById('copyBtnText');
+        if (btnText) {
+          btnText.textContent = "Copied!";
+          setTimeout(() => { btnText.textContent = "Copy"; }, 2000);
+        }
+      });
+    }
+    if (ctaCopyBtn) {
+      ctaCopyBtn.addEventListener('click', () => {
+        copyTextToClipboard(CONTRACT_ADDRESS);
+      });
+    }
+
+    // Tone.js Sound Synthesizer for "Bark" sound without any external MP3 link
+    let synth;
+    const barkBtn = document.getElementById('barkBtn');
+    if (barkBtn) {
+      barkBtn.addEventListener('click', async () => {
+        try {
+          await Tone.start();
+          if (!synth) {
+            synth = new Tone.MembraneSynth({
+              pitchDecay: 0.08,
+              octaves: 4,
+              oscillator: { type: "sawtooth" },
+              envelope: { attack: 0.001, decay: 0.2, sustain: 0.01, release: 0.1 }
+            }).toDestination();
+          }
+          // Quick double woof
+          synth.triggerAttackRelease("C3", "16n");
+          setTimeout(() => synth.triggerAttackRelease("G2", "16n"), 120);
+          showToast("Bark! Coco hears you 🐕");
+        } catch (e) {
+          console.log("Audio permission initialized");
+        }
+      });
+    }
+
+    // Birthday Confetti blast
+    const birthdayBtn = document.getElementById('birthdayBtn');
+    if (birthdayBtn) {
+      birthdayBtn.addEventListener('click', () => {
+        if (typeof confetti === 'function') {
+          confetti({
+            particleCount: 100,
+            spread: 70,
+            origin: { y: 0.6 },
+            colors: ['#F59E0B', '#FBBF24', '#FFFFFF', '#EF4444', '#10B981']
+          });
+        }
+        showToast("🎉 Happy Birthday! Coco reigns supreme!");
+      });
+    }
+
+    // Interactive Market Cap Slider & Moon Simulator Logic
+    const mcapSlider = document.getElementById('mcapSlider');
+    const mcapValueDisplay = document.getElementById('mcapValueDisplay');
+    const tokenPriceDisplay = document.getElementById('tokenPriceDisplay');
+    const holdingValueDisplay = document.getElementById('holdingValueDisplay');
+    const milestoneIcon = document.getElementById('milestoneIcon');
+    const milestoneText = document.getElementById('milestoneText');
+
+    function updateSimulator(mcap) {
+      const price = mcap / TOTAL_SUPPLY;
+      const sampleHoldingValue = price * 1000000; // Value for 1M tokens
+
+      // Format displays
+      if (mcapValueDisplay) mcapValueDisplay.textContent = '$' + Number(mcap).toLocaleString();
+      if (tokenPriceDisplay) tokenPriceDisplay.textContent = '$' + price.toFixed(price < 0.001 ? 6 : 4);
+      if (holdingValueDisplay) holdingValueDisplay.textContent = '$' + sampleHoldingValue.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+      // Milestones narrative
+      if (mcap < 50000) {
+        milestoneIcon.textContent = "🦴";
+        milestoneText.textContent = "The puppy steps: Coco buys a lifetime supply of crunchy gourmet dog biscuits.";
+      } else if (mcap < 150000) {
+        milestoneIcon.textContent = "🚀";
+        milestoneText.textContent = "Graduation complete! Raydium migration activated and Coco enters crypto hall of fame.";
+      } else if (mcap < 2000000) {
+        milestoneIcon.textContent = "🎾";
+        milestoneText.textContent = "Coco commissions 500,000 custom tennis balls and an automated ball-launching mansion.";
+      } else if (mcap < 25000000) {
+        milestoneIcon.textContent = "🏝️";
+        milestoneText.textContent = "Coco acquires a private tropical island renamed 'Isle of Good Boys'.";
+      } else {
+        milestoneIcon.textContent = "🪐";
+        milestoneText.textContent = "Global Sovereign Reserve: All world banks convert reserves directly to Just Coco.";
+      }
+    }
+
+    if (mcapSlider) {
+      mcapSlider.addEventListener('input', (e) => {
+        updateSimulator(parseFloat(e.target.value));
+      });
+      // Initialize on load
+      updateSimulator(1000000);
+    }
+  </script>
+</body>
+</html>
